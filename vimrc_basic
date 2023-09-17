@@ -1,0 +1,257 @@
+" my vim settings
+" Author: Yuya Aoki
+" Last Change: 2023/09/18 12:55:27
+
+let s:myoptions = 1
+let s:mymappings = 1
+let s:myautocmds = 1
+let s:myvariables = 1
+" let s:myfunctions = 1
+
+" set options--------------- 
+" {{{
+" もしs:myoptionsが1ならば
+if s:myoptions == 1
+	"settings to use multi byte character
+	set encoding=utf-8
+	scriptencoding utf-8
+
+	set nofoldenable
+	" 行数表示
+	set number
+	" swapfileを作らない
+	set noswapfile
+	" コマンド打つ場所の高さ
+	set cmdheight=2
+	" ファイル名表示
+	set title
+	" コマンドでも補完がきくように
+	set wildmenu
+	" 小文字で検索したとき大文字小文字を無視する
+	set ignorecase
+	" 検索キーワードが大文字を含む時だけ視無する
+	set smartcase
+	" 検索結果にハイライトをかける
+	set hlsearch
+	" インクリメント検索
+	set incsearch
+	" カーソルで行をまたげるようにする
+	set whichwrap=b,s,h,l,<,>,[,]
+	" tabなどを可視化する
+	set list
+	set listchars=tab:>-,extends:<,trail:-
+	" バックスペースでindent, end of low, startを削除できるように
+	set backspace=indent,eol,start
+	" タブ幅4
+	set tabstop=4
+	set shiftwidth=4
+	" マルチバイト用()
+	set ambiwidth=double
+	" エンコーディングの設定
+	set fileencodings=utf-8,euc-jp,sjis,iso-2022-jp
+	" もしutf-8ですべてのファイルを管理したければ
+	set fileencoding=utf-8
+	" この優先順位でファイルを保存する形式を決める
+	set fileformats=unix,dos,mac
+	" 256色描画
+	set t_Co=256
+	" Space をLeaderにする
+	let g:mapleader = "\<Space>"
+	" クリップボード連携
+	" Linuxではclipboard.vimの読み込みが非常に遅いので、無効化
+	if has('mac')
+		set clipboard+=unnamed
+	else
+		set clipboard=unnamed
+	endif
+	"" show match
+	"set showmatch
+	"" input match ( Ex. (,[,", and other ) time * 0.1 sec
+	"set matchtime=1
+	"" length of complete list
+	"set pumheight=5
+	" settings for ctags, tag jump
+	" set tags+=./tags;
+	" set path+=system("pyenv which python || which python")
+	" 暗号のアルゴリズム
+	" if !has('nvim')
+	"   set cryptmethod=blowfish2
+	" endif
+	" set shell=/usr/local/bin/bash
+	" if vim8.0 or latest, Disable packpath
+	if v:version >= 800
+		set packpath=
+	endif
+
+	" status bar
+	set laststatus=2
+
+	if has('nvim')
+		set termguicolors
+		lua if vim.loader then vim.loader.enable() end
+	endif
+endif
+" }}}
+
+" mappings---------------
+" {{{
+if s:mymappings == 1
+	" mapはキー設定
+	" nnoremap が normal mode,
+	" inoremap が insert mode,
+	" cnoremap が command line mode
+	" etc. etc.
+	" Space w で保存 Space q で終了
+	nnoremap <Leader>w :w<CR>
+	nnoremap w<Space> :w<CR>
+	nnoremap <Leader>q :q<CR>
+	nnoremap q<Space> :q<CR>
+	" Enter で改行して挿入モードに
+	nnoremap <CR> o
+	" Space SpaceでVisual Line
+	nnoremap <Leader><Leader> V
+	vnoremap <Leader> <ESC>
+	" 打ち間違いを修正する
+	nnoremap q: :q<CR>
+	" +-で数字増えたり減ったりするように
+	nnoremap + <C-a>
+	nnoremap - <C-x>
+	vnoremap + <C-a>
+	vnoremap g+ g<C-a>
+	vnoremap g- g<C-x>
+
+	" <>をうつのが面倒なので矢印で代替
+	nnoremap <right> >>
+	nnoremap <left> <<
+	nnoremap > >>
+	nnoremap < <<
+	vnoremap <right> >
+	vnoremap <left> <
+
+	" <C-f><C-b>が直感的でないので<C-j><C-k>で代替
+	nnoremap <C-j> <C-f>
+	nnoremap <C-k> <C-b>
+	vnoremap <C-j> <C-f>
+	vnoremap <C-k> <C-b>
+
+	" 実際の行でなく表示されてる行で移動を考える
+	nnoremap j gj
+	nnoremap gj j
+	nnoremap k gk
+	nnoremap gk h
+	vnoremap j gj
+	vnoremap gj j
+	vnoremap k gk
+	vnoremap gk h
+
+	" 明示的にclipboardの内容を貼り付ける
+	nnoremap <Leader>p "0p
+
+	" EX modeを無効化
+	nnoremap Q <Nop>
+
+	" 画面分割
+	nnoremap <Leader>s :vsplit<CR>
+	" nnoremap <Leader>- :split<CR>
+
+	" 画面移動
+	nnoremap <Leader>l <C-w>l
+	nnoremap <Leader>j <C-w>j
+	nnoremap <Leader>h <C-w>h
+	nnoremap <Leader>k <C-w>k
+
+	" 使いにくいキーを置換
+	nnoremap m %
+	" 一発で画面分割
+	nnoremap t :vsplit<CR><C-w>lgf
+	nnoremap T <C-^>
+	nnoremap <Leader>T :vsp<CR><C-w>l<C-]>
+
+	" バッファ移動
+	nnoremap <Leader>bp :bprevious<CR>
+	nnoremap <Leader>bn :bnext<CR>
+
+	" タブ移動
+	nnoremap <Leader>tp :tabprevious<CR>
+	nnoremap <Leader>tn :tabnext<CR>
+
+	" タブ操作
+	nnoremap <Leader>tl :tablast<CR>
+	nnoremap <Leader>tc :tabclose<CR>
+	nnoremap <Leader>nt :tabnew<CR>
+	nnoremap <Leader>tp :tabprevious<CR>
+
+	" 括弧の後ろまで飛んで編集したい
+	inoremap <C-m> <Esc>%i
+
+	" 日付入力ショートカット
+	nnoremap <Leader>date a<C-r>=strftime('%Y/%m/%d')<Return><Esc>
+	nnoremap <Leader>now a<C-r>=strftime('%Y/%m/%d %H:%M:%S')<Return><Esc>
+	" Vimgrep
+	nnoremap <Leader>v :vim //j ./* | cw
+
+	" edit vimrc
+	nnoremap <Leader>. :<C-u>tabedit ~/.vim/rc/vimrc<CR>
+
+	" put esc-key for delete highlight
+	nnoremap <silent> <Esc><Esc> :nohlsearch<CR>
+
+	" insert mode でエンターするとノーマルに戻ってしまうのを防ぐ
+	inoremap <CR> <CR>
+
+	" 検索したときに，画面の真ん中に移動
+	nnoremap n nzz
+	nnoremap N Nzz
+
+	" 他のコマンドと挙動を合わせる
+	nnoremap Y y$
+endif
+" }}}
+
+
+
+" variables---------------
+" {{{
+if s:myvariables == 1
+	" OSの判定
+	if has('win32')
+		let g:ostype = 'Win'
+	elseif has('mac')
+		let g:ostype = 'Mac'
+	else
+		let g:ostype = system('uname')
+	endif
+endif
+" }}}
+
+" reset augroup
+augroup MyAutoCmd
+	autocmd!
+augroup END
+
+" autocmds---------------
+" {{{
+if s:myautocmds == 1
+	" load template
+	let templatebase = expand(fnamemodify(expand('<sfile>'), ':h').'/template/template.')
+	let template_ext = expand('%:e')
+	let $templatename = templatebase.template_ext
+	let $template_make = templatebase.'make'
+	if filereadable($templatename)
+		autocmd MyAutoCmd BufNewFile * 0r $templatename
+	endif
+	if filereadable($template_make)
+		autocmd MyAutoCmd BufNewFile Makefile 0r $template_make
+	endif
+	autocmd MyAutoCmd BufNewFile,BufRead Jenkinsfile setf groovy
+	try
+		set cmdheight=1
+		autocmd MyAutoCmd CmdlineEnter,RecordingEnter * set cmdheight=2
+		autocmd MyAutoCmd CmdlineLeave,RecordingLeave * set cmdheight=1
+	catch
+		set cmdheight=1
+	endtry
+endif
+
+
+" vim:set foldmethod=marker:

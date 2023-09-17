@@ -1,0 +1,48 @@
+[[plugins]]
+repo = 'Shougo/dein.vim'
+
+[[plugins]]
+repo = 'Shougo/context_filetype.vim'
+
+[[plugins]] # statusline の設定
+repo = 'itchyny/lightline.vim'
+
+[[plugins]] # colorscheme
+repo = 'tomasr/molokai'
+hook_add = '''
+set background=dark
+au MyAutoCmd VimEnter * nested colorscheme molokai
+'''
+
+[[plugins]] # syntax for toml
+repo = 'cespare/vim-toml'
+on_ft = 'toml'
+
+[[plugins]] # denops用の設定
+repo = 'vim-denops/denops.vim'
+hook_source = '''
+  " NOTE: for profile
+  "let g:denops#server#deno_args = [
+  "    \ '-q',
+  "    \ '-A',
+  "    \ '--unstable',
+  "    \ '--inspect',
+  "    \ ]
+
+  " Use background server
+  "if has('nvim')
+  "  call jobstart([
+  "  \   'deno', 'run', '-A', '--no-check',
+  "  \   $'{g:dein#plugin.path}/denops/@denops-private/cli.ts',
+  "  \ ], {'detach': v:true})
+  "else
+  "  call job_start([
+  "  \   'deno', 'run', '-A', '--no-check',
+  "  \   $'{g:dein#plugin.path}/denops/@denops-private/cli.ts',
+  "  \ ], {'stoponexit': ''})
+  "endif
+  "let g:denops_server_addr = '127.0.0.1:32123'
+'''
+
+[[plugins]] # 日本語のヘルプ
+repo = 'vim-jp/vimdoc-ja'
