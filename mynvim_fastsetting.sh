@@ -30,8 +30,8 @@ cd .. || exit
 # License is MIT
 curl -fsSL https://deno.land/x/install/install.sh | sh
 echo "
-export DENO_INSTALL=$HOME'/.deno'
-export PATH='$DENO_INSTALL/bin:$PATH'
+export DENO_INSTALL=\$HOME'/.deno'
+export PATH='\$DENO_INSTALL/bin:\$PATH'
 " >> ~/.bashrc
 
 #######################################
@@ -50,14 +50,14 @@ then
 	fi
 	curl https://sh.rustup.rs -sSf | sh
 	export PATH=$HOME/.cargo/bin:$PATH
-	echo "export PATH=$HOME/.cargo/bin:$PATH" >> "$HOME/.bashrc"
+	echo "export PATH=\$HOME/.cargo/bin:\$PATH" >> "$HOME/.bashrc"
 fi
 cargo install mocword
 # もし/.cargo/binがpathにふくまれていなければ追加
 if ! echo "$PATH" | grep -q "$HOME/.cargo/bin";
 then
 	echo "
-	export PATH=$HOME/.cargo/bin:$PATH
+	export PATH=\$HOME/.cargo/bin:\$PATH
 	" >> ~/.bashrc
 fi
 wget https://github.com/high-moctane/mocword-data/releases/download/eng20200217/mocword.sqlite.gz
@@ -74,7 +74,7 @@ export MOCWORD_DATA=\"$MOCWORD_DB_PATH/mocword.sqlite\"
 #######################################
 
 # install some useful linters
-sudo apt-get shellcheck pylint -y
+sudo apt-get install shellcheck pylint -y
 
 #######################################
 
