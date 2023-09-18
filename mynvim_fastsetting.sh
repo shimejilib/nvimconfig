@@ -10,14 +10,14 @@ if [ ! -d "$HOME"/.config ]; then
 	mkdir "$HOME"/.config
 fi
 
-sudo apt-get install git curl gzip
+sudo apt-get install git curl gzip -y
 # このrepository をcloneして、nvimの設定をする
 git clone "$GIT_URL" ~/.config/nvim
 
 #######################################
 # neovim build
 # License is Apache-2.0
-sudo apt-get install ninja-build gettext cmake unzip curl xclip
+sudo apt-get install ninja-build gettext cmake unzip curl xclip -y
 git clone https://github.com/neovim/neovim
 cd neovim || exit
 git checkout v0.9.2
@@ -44,6 +44,10 @@ yes 1 | sh -c "$(curl -fsSL https://raw.githubusercontent.com/Shougo/dein-instal
 # mocwordは英単語を保管するためのツール
 if ! which cargo > /dev/null;
 then
+	if ! which cc >/dev/null;
+	then
+		sudo apt install gcc -y
+	fi
 	curl https://sh.rustup.rs -sSf | sh
 	export PATH=$HOME/.cargo/bin:$PATH
 	echo "export PATH=$HOME/.cargo/bin:$PATH" >> "$HOME/.bashrc"
@@ -70,12 +74,12 @@ export MOCWORD_DATA=\"$MOCWORD_DB_PATH/mocword.sqlite\"
 #######################################
 
 # install some useful linters
-sudo apt-get shellcheck pylint
+sudo apt-get shellcheck pylint -y
 
 #######################################
 
 # TRUECOLORが有効か確認する
-bash "$HOME".config/nvim/test_truecolor.sh
+bash "$HOME"/.config/nvim/test_truecolor.sh
 
 echo "
 if you want to enable TRUECOLOR, please install tmux 2.2 or later.
