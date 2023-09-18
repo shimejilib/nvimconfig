@@ -2,7 +2,7 @@
 # Date: 2023/09/17
 # Name: Yuya Aoki
 
-GIT_URL="git@github.com:shimejilib/nvimconfig.git"
+GIT_URL="https://github.com/shimejilib/nvimconfig.git"
 MOCWORD_DB_PATH="$HOME/self/etc/"
 
 # $HOME/.configがなければ作成
