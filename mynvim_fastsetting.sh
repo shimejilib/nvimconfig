@@ -35,7 +35,7 @@ export PATH=\$DENO_INSTALL/bin:\$PATH" >> ~/.bashrc
 #######################################
 # dein install
 # License is MIT
-yes 1 | sh -c "$(curl -fsSL https://raw.githubusercontent.com/Shougo/dein-installer.vim/master/installer.sh)"
+yes 1 | sh -c "$(curl -fsSL https://raw.githubusercontent.com/Shougo/dein-installer.vim/master/installer.sh)" > /dev/null
 
 #######################################
 # mocwordのinstallとnextword用の設定
