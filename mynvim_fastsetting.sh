@@ -1,7 +1,8 @@
+#!/usr/bin/env bash
 # Date: 2023/09/17
 # Name: Yuya Aoki
 
-GIT_URL="this repository url"
+GIT_URL="git@github.com:shimejilib/nvimconfig.git"
 MOCWORD_DB_PATH="$HOME/self/etc/"
 
 # $HOME/.configがなければ作成
@@ -43,7 +44,9 @@ yes 1 | sh -c "$(curl -fsSL https://raw.githubusercontent.com/Shougo/dein-instal
 # mocwordは英単語を保管するためのツール
 if ! which cargo > /dev/null;
 then
-	sudo apt-get install cargo
+	curl https://sh.rustup.rs -sSf | sh
+	export PATH=$HOME/.cargo/bin:$PATH
+	echo "export PATH=$HOME/.cargo/bin:$PATH" >> "$HOME/.bashrc"
 fi
 cargo install mocword
 # もし/.cargo/binがpathにふくまれていなければ追加
@@ -72,7 +75,7 @@ sudo apt-get shellcheck pylint
 #######################################
 
 # TRUECOLORが有効か確認する
-bash "$SRC"/test_truecolor.sh
+bash "$HOME".config/nvim/test_truecolor.sh
 
 echo "
 if you want to enable TRUECOLOR, please install tmux 2.2 or later.
