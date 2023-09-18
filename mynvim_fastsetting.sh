@@ -29,10 +29,8 @@ cd .. || exit
 # deno install
 # License is MIT
 curl -fsSL https://deno.land/x/install/install.sh | sh
-echo "
-export DENO_INSTALL=\$HOME'/.deno'
-export PATH='\$DENO_INSTALL/bin:\$PATH'
-" >> ~/.bashrc
+echo " export DENO_INSTALL=\$HOME/.deno
+export PATH=\$DENO_INSTALL/bin:\$PATH" >> ~/.bashrc
 
 #######################################
 # dein install
